@@ -5,7 +5,7 @@
 
 @layer components{
   .tag{
-    @apply w-[70px] h-[30px] bg-indigo-950 text-slate-100 rounded-md text-center leading-[30px]
+    @apply w-[70px] h-[30px] bg-indigo-950 text-slate-100 text-center leading-[30px]
   } 
 }
 @layer base {
@@ -14,11 +14,11 @@
   }
   table{
     @apply w-full text-left border-b border-b-black border-t border-t-black 
-   }
-   thead{
+  }
+  thead{
     @apply h-12
-   }
-   th{
+  }
+  th{
     @apply pb-2
-   }
+  }
 }
