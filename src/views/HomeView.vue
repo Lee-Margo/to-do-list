@@ -14,6 +14,14 @@ export default {
             ],
         }
     },
+    mounted(){
+        // 當網頁開啟後，先執行裡面的JS
+        // 先把資料從local stroage特定key拿出資料丟入 msgArr裡面
+        if(localStorage.getItem('msg')){
+            this.listData = JSON.parse(localStorage.getItem('msg'));
+        }
+    },
+    // 預處理妳拿到的資料，她有暫存功能，所以我們可以拿到整包資料，利用判斷式把我們的資料做篩選
     computed:{
         filterListData(){
             if(this.selectedTab === ''){
@@ -28,6 +36,7 @@ export default {
         },
         deleteList(id){
             this.listData = this.listData.filter((list)=>list.id !== id);
+            localStorage.setItem('msg', JSON.stringify(this.listData));
         },
         importList(){
             if(this.listData != ''){
@@ -43,6 +52,7 @@ export default {
                 });
             };
             this.text = '';
+            localStorage.setItem('msg', JSON.stringify(this.listData));
         },
         editMsg(list){
             list.editSwitch = !list.editSwitch;
@@ -54,6 +64,7 @@ export default {
             }else{
                 list.editMsg = list.content;
             }
+            localStorage.setItem('msg', JSON.stringify(this.listData));
         },
     },
 };
@@ -71,9 +82,9 @@ export default {
                 </div>
                 <div class="bottom">
                     <div class="tag-list flex gap-4">
-                        <button class="tag" @click="changeTab('')" :class="{ 'active': selectedTab==='' }">全部</button>
-                        <button class="tag" @click="changeTab(true)" :class="{'active': selectedTab === true }">已執行</button>
-                        <button class="tag" @click="changeTab(false)" :class="{'active': selectedTab === false }">未執行</button>
+                        <button class="tag" @click="selectedTab = ''" :class="{ 'active': selectedTab==='' }">全部</button>
+                        <button class="tag" @click="selectedTab = true" :class="{'active': selectedTab === true }">已執行</button>
+                        <button class="tag" @click="selectedTab = false" :class="{'active': selectedTab === false }">未執行</button>
                     </div>
                     <table>
                         <thead>
@@ -88,7 +99,7 @@ export default {
                                 <th><input type="checkbox" v-model="list.checked" ></th>
                                 <th v-if="list.editSwitch === false" class="text-wrap">{{list.content}}</th>
                                 <input v-else v-model="list.editMsg"  class="border-2" type="text">
-                                <th >
+                                <th class="flex justify-center gap-4" >
                                     <button @click="editMsg(list)" class="edit">Edit</button>
                                     <button @click="deleteList(list.id)" class="delete">Delete</button>
                                 </th>
