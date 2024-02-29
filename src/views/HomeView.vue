@@ -70,7 +70,7 @@ export default {
                     <button class="w-12 bg-slate-400 ml-1" @click="importList()">輸入</button>
                 </div>
                 <div class="bottom">
-                    <div class="tag-list flex">
+                    <div class="tag-list flex gap-4">
                         <button class="tag" @click="changeTab('')" :class="{ 'active': selectedTab==='' }">全部</button>
                         <button class="tag" @click="changeTab(true)" :class="{'active': selectedTab === true }">已執行</button>
                         <button class="tag" @click="changeTab(false)" :class="{'active': selectedTab === false }">未執行</button>
